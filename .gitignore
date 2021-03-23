@@ -2,6 +2,8 @@
 # Covers Maven build directory
 # ---------------------------------------------------------------------
 #
+mvnw
+mvnw.cmd
 target/
 build/
 .gradle/
