@@ -12,4 +12,4 @@ INSERT INTO office(organization_id,name,phone,is_active,address) VALUES (2,'Гл
 
 INSERT INTO user(office_id,first_name,second_name,last_name,middle_name,position,is_identified,phone,citizenship_code) VALUES (2,'Иванов',null,'Иван', 'Иванович','Директор','true','83333333333',643);
 
-INSERT INTO document(id,number,date,code) VALUES (1,'4500123456','2005-02-02',21);
+INSERT INTO document(id,doc_number,doc_date,code) VALUES (1,'4500123456','2005-02-02',21);

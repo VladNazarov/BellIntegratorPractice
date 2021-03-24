@@ -53,10 +53,10 @@ CREATE TABLE IF NOT EXISTS user
 
 CREATE TABLE IF NOT EXISTS document
 (
-    id     INTEGER PRIMARY KEY,
-    number VARCHAR(30) NOT NULL,
-    date   DATE        NOT NULL,
-    code   INT         NOT NULL,
+    id         INTEGER PRIMARY KEY,
+    doc_number VARCHAR(30) NOT NULL,
+    doc_date   DATE        NOT NULL,
+    code       INT         NOT NULL,
     CONSTRAINT doc_code FOREIGN KEY (code) REFERENCES document_type (code),
     CONSTRAINT user_id FOREIGN KEY (`id`) REFERENCES user (id)
 );
