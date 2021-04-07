@@ -1,62 +1,64 @@
 CREATE TABLE IF NOT EXISTS country
 (
-    code INTEGER PRIMARY KEY NOT NULL,
-    name VARCHAR(70)         NOT NULL
+    id   INTEGER PRIMARY KEY AUTO_INCREMENT,
+    code INTEGER     NOT NULL,
+    name VARCHAR(70) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS document_type
 (
-    code INTEGER PRIMARY KEY,
+    id   INTEGER PRIMARY KEY AUTO_INCREMENT,
+    code INTEGER     NOT NULL,
     name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS organization
 (
     id        INTEGER PRIMARY KEY AUTO_INCREMENT,
-    name      VARCHAR(50)           NOT NULL,
-    full_name VARCHAR(70)           NOT NULL,
-    inn       CHAR(10)              NOT NULL,
-    is_active ENUM ('true','false') NOT NULL,
-    kpp       CHAR(9)               NOT NULL,
-    address   VARCHAR(50)           NOT NULL,
-    phone     VARCHAR(20)           NOT NULL
+    name      VARCHAR(50)  NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    inn       VARCHAR(12)  NOT NULL,
+    is_active BOOLEAN,
+    kpp       CHAR(9)      NOT NULL,
+    address   VARCHAR(50)  NOT NULL,
+    phone     VARCHAR(20)
 );
 
 CREATE TABLE IF NOT EXISTS office
 (
     id              INTEGER PRIMARY KEY AUTO_INCREMENT,
-    organization_id INTEGER                NOT NULL,
-    name            VARCHAR(50)            NOT NULL,
-    phone           VARCHAR(20)            NOT NULL,
-    is_active       ENUM ('true', 'false') NOT NULL,
-    address         VARCHAR(50)            NOT NULL,
+    organization_id INTEGER     NOT NULL,
+    name            VARCHAR(50) NOT NULL,
+    phone           VARCHAR(20),
+    is_active       BOOLEAN,
+    address         VARCHAR(50) NOT NULL,
     CONSTRAINT org_id FOREIGN KEY (organization_id) REFERENCES organization (id)
 );
 
 
 CREATE TABLE IF NOT EXISTS user
 (
-    id               INTEGER PRIMARY KEY AUTO_INCREMENT,
-    office_id        INTEGER               NOT NULL,
-    first_name       VARCHAR(50)           NOT NULL,
-    second_name      VARCHAR(50),
-    last_name        VARCHAR(50)           NOT NULL,
-    middle_name      VARCHAR(50)           NOT NULL,
-    position         VARCHAR(20)           NOT NULL,
-    is_identified    ENUM ('true','false') NOT NULL,
-    phone            VARCHAR(20)           NOT NULL,
-    citizenship_code INTEGER               NOT NULL,
-    CONSTRAINT citizenship_code FOREIGN KEY (citizenship_code) REFERENCES country (code),
+    id            INTEGER PRIMARY KEY AUTO_INCREMENT,
+    office_id     INTEGER     NOT NULL,
+    first_name    VARCHAR(50) NOT NULL,
+    second_name   VARCHAR(50),
+    last_name     VARCHAR(50),
+    middle_name   VARCHAR(50),
+    position      VARCHAR(20) NOT NULL,
+    is_identified BOOLEAN,
+    phone         VARCHAR(20),
+    country_id    INTEGER     NOT NULL,
+    CONSTRAINT citizenship_code FOREIGN KEY (country_id) REFERENCES country (id),
     CONSTRAINT office_id FOREIGN KEY (office_id) REFERENCES office (id)
 );
 
 
 CREATE TABLE IF NOT EXISTS document
 (
-    id         INTEGER PRIMARY KEY,
-    doc_number VARCHAR(30) NOT NULL,
-    doc_date   DATE        NOT NULL,
-    code       INT         NOT NULL,
-    CONSTRAINT doc_code FOREIGN KEY (code) REFERENCES document_type (code),
-    CONSTRAINT user_id FOREIGN KEY (`id`) REFERENCES user (id)
+    id          INTEGER PRIMARY KEY,
+    doc_number  VARCHAR(30) NOT NULL,
+    doc_date    DATE        NOT NULL,
+    doc_type_id INTEGER     NOT NULL,
+    CONSTRAINT doc_code FOREIGN KEY (doc_type_id) REFERENCES document_type (id),
+    CONSTRAINT user_id FOREIGN KEY (id) REFERENCES user (id)
 );
