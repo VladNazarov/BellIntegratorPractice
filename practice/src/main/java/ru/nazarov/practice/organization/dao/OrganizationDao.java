@@ -1,39 +1,37 @@
 package ru.nazarov.practice.organization.dao;
 
 import ru.nazarov.practice.organization.model.Organization;
+import ru.nazarov.practice.organization.view.OrganizationFilter;
 
 import java.util.List;
 
 /**
  * DAO для работы с Organization
+ * @author Vlad Nazarov
  */
 public interface OrganizationDao {
     /**
-     * Получить список Organization
-     *
-     * @return
+     * Получить список организаций по фильтру
+     * @return список организаций
      */
-    List<Organization> getList();
+    List<Organization> getList(OrganizationFilter orgFilter);
 
     /**
-     * Получить Organization по id
-     *
-     * @param id
-     * @return
+     * Получить организацию по id
+     * @param id id организации
+     * @return организация
      */
-    Organization getById(long id);
+    Organization getById(Long id);
 
     /**
-     * Обновить запись Organization
-     * @param organization
-     * @return
+     * Обновить существующую запись организации
+     * @param organization организация
      */
     void update(Organization organization);
 
     /**
-     * Добавить Organization
-     * @param organization
-     * @return
+     * Добавить организацию
+     * @param organization организация
      */
     void save(Organization organization);
 

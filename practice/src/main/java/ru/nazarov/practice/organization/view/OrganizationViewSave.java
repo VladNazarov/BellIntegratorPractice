@@ -54,11 +54,11 @@ public class OrganizationViewSave {
         this.inn = inn;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 

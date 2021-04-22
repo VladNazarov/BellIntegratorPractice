@@ -13,43 +13,80 @@ import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
+/**
+ * User entity
+ * @author Vlad Nazarov
+ */
 @Entity
 public class User {
+    @Version
+    private Integer version;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     *User`s first name
+     */
     @Column(name = "first_name", length = 50, nullable = false)
     private String firstName;
 
+    /**
+     * User`s second name
+     */
     @Column(name = "second_name", length = 50)
     private String secondName;
 
+    /**
+     * User`s last name
+     */
     @Column(name = "last_name", length = 50)
     private String lastName;
 
+    /**
+     * User`s middle name
+     */
     @Column(name = "middle_name", length = 50)
     private String middleName;
 
+    /**
+     * User`s position in organization
+     */
     @Column(length = 20, nullable = false)
     private String position;
 
+    /**
+     *
+     */
     @Column(name = "is_identified")
     private Boolean isIdentified;
 
+    /**
+     * User`s phone. Can be mobile or landline
+     */
     @Column(length = 20)
     private String phone;
 
+    /**
+     * Office where user works
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id")
     private Office office;
 
+    /**
+     * User`s document
+     */
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private Document document;
 
+    /**
+     * User`s citizenship
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;

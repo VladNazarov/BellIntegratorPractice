@@ -30,7 +30,7 @@ public class OrganizationFilter {
         this.inn = inn;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return isActive;
     }
 

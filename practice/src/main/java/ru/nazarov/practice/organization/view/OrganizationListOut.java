@@ -1,6 +1,6 @@
 package ru.nazarov.practice.organization.view;
 
-public class OrganizationListViewOut {
+public class OrganizationListOut {
     private Long id;
     private String name;
     private Boolean isActive;

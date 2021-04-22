@@ -5,7 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Version;
 
+/**
+ * Организация
+ * @author Vlad Nazarov
+ */
 @Entity
 public class Organization {
 
@@ -13,24 +18,51 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     *Служебное поле hibernate
+     */
+    @Version
+    private Integer version;
+
+    /**
+     *Имя организации
+     */
     @Column(length = 50,nullable = false)
     private String name;
 
+    /**
+     * Полное имя организации
+     */
     @Column(name = "full_name",length = 100, nullable = false)
     private String fullName;
 
+    /**
+     *ИНН организации
+     */
     @Column(length = 12,nullable = false)
     private String inn;
 
+    /**
+     *Флаг активности организации
+     */
     @Column(name = "is_active")
     private Boolean isActive;
 
+    /**
+     *КПП организации
+     */
     @Column(length = 9,nullable = false)
     private String kpp;
 
+    /**
+     *Адрес организации
+     */
     @Column(length = 50,nullable = false)
     private String address;
 
+    /**
+     *Телефонный номер организации
+     */
     @Column(length = 20)
     private String phone;
 

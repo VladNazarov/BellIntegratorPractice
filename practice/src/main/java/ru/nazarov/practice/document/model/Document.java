@@ -7,11 +7,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
+import javax.persistence.Version;
 
 import java.util.Date;
 
 @Entity
 public class Document {
+
+    @Version
+    private Integer version;
+
     @Id
     private Long id;
 

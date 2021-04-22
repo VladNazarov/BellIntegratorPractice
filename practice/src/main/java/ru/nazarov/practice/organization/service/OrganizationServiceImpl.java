@@ -7,10 +7,12 @@ import ru.nazarov.practice.organization.dao.OrganizationDao;
 
 import ru.nazarov.practice.organization.model.Organization;
 import ru.nazarov.practice.organization.view.OrganizationFilter;
-import ru.nazarov.practice.organization.view.OrganizationListViewOut;
+import ru.nazarov.practice.organization.view.OrganizationListOut;
 import ru.nazarov.practice.organization.view.OrganizationOutById;
 import ru.nazarov.practice.organization.view.OrganizationViewSave;
 import ru.nazarov.practice.organization.view.OrganizationViewUpdate;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,11 +29,14 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public List<OrganizationListViewOut> getList(OrganizationFilter filter) {
-        return null;
+    @Transactional(readOnly = true)
+    public List<OrganizationListOut> getList(OrganizationFilter filter) {
+        List<Organization> list = dao.getList(filter);
+        return mapperFacade.mapAsList(list, OrganizationListOut.class);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public OrganizationOutById getById(long id) {
         Organization org = dao.getById(id);
         return mapperFacade.map(org, OrganizationOutById.class);
@@ -39,12 +44,16 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    @Transactional
     public void add(OrganizationViewSave organization) {
-
+        Organization org = mapperFacade.map(organization, Organization.class);
+        dao.save(org);
     }
 
     @Override
+    @Transactional
     public void update(OrganizationViewUpdate organizationViewUpdate) {
-
+        Organization org = mapperFacade.map(organizationViewUpdate, Organization.class);
+        dao.update(org);
     }
 }
