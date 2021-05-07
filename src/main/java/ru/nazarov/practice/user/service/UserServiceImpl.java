@@ -110,17 +110,6 @@ public class UserServiceImpl implements UserService {
             throw new DataNotFoundException("User with this id not found",e);
         }
 
-    /*    if (user != null) {
-            UserOutByIdView userView = mapperFacade.map(user, UserOutByIdView.class);
-            mapperFacade.map(user.getCountry(), userView);
-            mapperFacade.map(user.getDocument(), userView);
-            userView.setDocName(user.getDocument().getDocumentType().getName());
-
-            return userView;
-        } else {
-            throw new DataNotFoundException("User with this id not found");
-        }*/
-
     }
 
     /**
