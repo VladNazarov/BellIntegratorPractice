@@ -4,6 +4,7 @@ import ru.nazarov.practice.country.model.Country;
 import ru.nazarov.practice.document.model.Document;
 import ru.nazarov.practice.office.model.Office;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,76 +17,81 @@ import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 /**
- * User entity
- * @author Vlad Nazarov
+ * Пользователь
  */
 @Entity
 public class User {
-    @Version
-    private Integer version;
 
+    /**
+     * Уникальный идентификатор
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     *User`s first name
+     * Служебное поле hibernate
+     */
+    @Version
+    private Integer version;
+
+    /**
+     *Имя пользователя
      */
     @Column(name = "first_name", length = 50, nullable = false)
     private String firstName;
 
     /**
-     * User`s second name
+     * Второе имя пользователя
      */
     @Column(name = "second_name", length = 50)
     private String secondName;
 
     /**
-     * User`s last name
+     * Фамилия пользователя
      */
     @Column(name = "last_name", length = 50)
     private String lastName;
 
     /**
-     * User`s middle name
+     * Отчество пользователя
      */
     @Column(name = "middle_name", length = 50)
     private String middleName;
 
     /**
-     * User`s position in organization
+     * Должность пользователя
      */
     @Column(length = 20, nullable = false)
     private String position;
 
     /**
-     *
+     * Флаг идентификации пользователя
      */
     @Column(name = "is_identified")
     private Boolean isIdentified;
 
     /**
-     * User`s phone. Can be mobile or landline
+     * Телефонный номер пользователя
      */
     @Column(length = 20)
     private String phone;
 
     /**
-     * Office where user works
+     * Офис, к которому прикреплён пользователь
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "office_id")
+    @JoinColumn(name = "office_id", nullable = false)
     private Office office;
 
     /**
-     * User`s document
+     * Документ пользователя
      */
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Document document;
 
     /**
-     * User`s citizenship
+     * Гражданство пользователя
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")

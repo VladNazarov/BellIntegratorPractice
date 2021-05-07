@@ -1,7 +1,16 @@
 package ru.nazarov.practice.document.view;
 
+/**
+ * DTO для отображения типов документа
+ */
 public class DocumentView {
+    /**
+     * Наименование документа
+     */
     private String name;
+    /**
+     * Код документа
+     */
     private String code;
 
     public String getCode() {

@@ -9,65 +9,71 @@ import javax.persistence.Version;
 
 /**
  * Организация
- * @author Vlad Nazarov
  */
 @Entity
 public class Organization {
 
+    /**
+     * Уникальный идентификатор
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     *Служебное поле hibernate
+     * Служебное поле hibernate
      */
     @Version
     private Integer version;
 
     /**
-     *Имя организации
+     * Название организации
      */
-    @Column(length = 50,nullable = false)
+    @Column(length = 50, nullable = false)
     private String name;
 
     /**
-     * Полное имя организации
+     * Полное название организации
      */
-    @Column(name = "full_name",length = 100, nullable = false)
+    @Column(name = "full_name", length = 100, nullable = false)
     private String fullName;
 
     /**
-     *ИНН организации
+     * ИНН организации
      */
-    @Column(length = 12,nullable = false)
+    @Column(length = 12, nullable = false)
     private String inn;
 
     /**
-     *Флаг активности организации
+     * Флаг активности организации
      */
     @Column(name = "is_active")
     private Boolean isActive;
 
     /**
-     *КПП организации
+     * КПП организации
      */
-    @Column(length = 9,nullable = false)
+    @Column(length = 9, nullable = false)
     private String kpp;
 
     /**
-     *Адрес организации
+     * Адрес организации
      */
-    @Column(length = 50,nullable = false)
+    @Column(length = 50, nullable = false)
     private String address;
 
     /**
-     *Телефонный номер организации
+     * Телефонный номер организации
      */
     @Column(length = 20)
     private String phone;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -1,25 +1,48 @@
 package ru.nazarov.practice.office.view;
 
-import javax.validation.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * DTO для обновления существующей записи офиса
+ */
 public class OfficeUpdateView {
+    /**
+     * ID офиса
+     */
+    @NotNull(message = "Поле id не может быть пустым")
+    private Long id;
 
-    @NotEmpty
-    private long id;
-
-    @Size(max = 50)
+    /**
+     * Название офиса
+     */
+    @NotBlank(message = "Поле name не может быть пустым")
+    @Size(max = 50, message = "Поле name не может быть больше 50")
     private String name;
 
-    @Size(max = 50)
+    /**
+     * Адрес офиса
+     */
+    @NotBlank(message = "Поле address не может быть пустым")
+    @Size(max = 50, message = "Поле address не может быть больше 50")
     private String address;
 
-    @Size(max = 20)
+    /**
+     * Телефонный номер офиса
+     */
+    @Size(max = 20, message = "Поле phone не может быть больше 20")
     private String phone;
 
-    private boolean isActive;
+    /**
+     * Флаг активности офиса
+     */
+    @JsonProperty("isActive")
+    private Boolean isActive;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -51,11 +74,11 @@ public class OfficeUpdateView {
         this.phone = phone;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 }

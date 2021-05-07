@@ -1,41 +1,41 @@
 package ru.nazarov.practice.organization.service;
 
-import ru.nazarov.practice.organization.view.OrganizationFilter;
-import ru.nazarov.practice.organization.view.OrganizationListOut;
-import ru.nazarov.practice.organization.view.OrganizationOutById;
-import ru.nazarov.practice.organization.view.OrganizationViewSave;
-import ru.nazarov.practice.organization.view.OrganizationViewUpdate;
+import ru.nazarov.practice.organization.view.OrganizationFilterView;
+import ru.nazarov.practice.organization.view.OrganizationListOutView;
+import ru.nazarov.practice.organization.view.OrganizationOutByIdView;
+import ru.nazarov.practice.organization.view.OrganizationSaveView;
+import ru.nazarov.practice.organization.view.OrganizationUpdateView;
 
 import java.util.List;
 
 /**
  * Сервис для работы с организациями
- * @author Vlad Nazarov
  */
 public interface OrganizationService {
+
     /**
      * Получить список организаций по фильтру
      * @param filter фильтр
      * @return список организаций
      */
-    List<OrganizationListOut> getList(OrganizationFilter filter);
+    List<OrganizationListOutView> getListByFilter(OrganizationFilterView filter);
 
     /**
      * Получить организацию по id
      * @param id id
      * @return организация
      */
-    OrganizationOutById getById(long id);
+    OrganizationOutByIdView getById(Long id);
 
     /**
      * Добавить организацию
      * @param organization организация
      */
-    void add(OrganizationViewSave organization);
+    void add(OrganizationSaveView organization);
 
     /**
      * Обновить существующую запись организации
      * @param organizationViewUpdate организация
      */
-    void update(OrganizationViewUpdate organizationViewUpdate);
+    void update(OrganizationUpdateView organizationViewUpdate);
 }

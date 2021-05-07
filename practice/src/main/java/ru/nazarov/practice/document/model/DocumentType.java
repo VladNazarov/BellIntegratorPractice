@@ -7,19 +7,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Version;
 
+/**
+ * Тип документа
+ */
 @Entity
 public class DocumentType {
 
-    @Version
-    private Integer version;
-
+    /**
+     * Уникальный идентификатор
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private int code;
+    /**
+     * Служебное поле Hibernate
+     */
+    @Version
+    private Integer version;
 
+    /**
+     * Код документа
+     */
+    @Column(nullable = false)
+    private Integer code;
+
+    /**
+     * Название документа
+     */
     @Column(length = 50, nullable = false)
     private String name;
 
@@ -31,11 +46,11 @@ public class DocumentType {
         this.id = id;
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

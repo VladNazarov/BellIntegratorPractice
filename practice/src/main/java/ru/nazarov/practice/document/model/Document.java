@@ -1,8 +1,13 @@
 package ru.nazarov.practice.document.model;
 
+import ru.nazarov.practice.user.model.User;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.ManyToOne;
@@ -11,25 +16,56 @@ import javax.persistence.Version;
 
 import java.util.Date;
 
+/**
+ * Документ
+ */
 @Entity
 public class Document {
 
-    @Version
-    private Integer version;
-
+    /**
+     * Уникальный идентификатор
+     */
     @Id
     private Long id;
 
-    @Column(name = "doc_number", length = 30, nullable = false)
-    private String docNumber;
+    /**
+     * Служебное поле Hibernate
+     */
+    @Version
+    private Integer version;
 
+    /**
+     * Номер документа
+     */
+    @Column(name = "doc_number", length = 30, nullable = false)
+    private String number;
+
+    /**
+     * Дата выдачи документа
+     */
     @Column(name = "doc_date")
     @Temporal(TemporalType.DATE)
-    private Date docDate;
+    private Date date;
 
+    /**
+     * Тип документа
+     */
     @ManyToOne
     @JoinColumn(name = "doc_type_id")
     private DocumentType documentType;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "id", nullable = false)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -39,20 +75,20 @@ public class Document {
         this.id = id;
     }
 
-    public String getDocNumber() {
-        return docNumber;
+    public String getNumber() {
+        return number;
     }
 
-    public void setDocNumber(String docNumber) {
-        this.docNumber = docNumber;
+    public void setNumber(String docNumber) {
+        this.number = docNumber;
     }
 
-    public Date getDocDate() {
-        return docDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDocDate(Date docDate) {
-        this.docDate = docDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public DocumentType getDocumentType() {

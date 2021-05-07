@@ -1,17 +1,42 @@
 package ru.nazarov.practice.office.view;
 
-public class OfficeOutByIdView {
-    private long id;
-    private String name;
-    private String address;
-    private String phone;
-    private boolean isActive;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public long getId() {
+/**
+ * DTO отображение офиса по id
+ */
+public class OfficeOutByIdView {
+    /**
+     * ID офиса
+     */
+    private Long id;
+
+    /**
+     * Название офиса
+     */
+    private String name;
+
+    /**
+     * Адрес офиса
+     */
+    private String address;
+
+    /**
+     * Телефонный номер офиса
+     */
+    private String phone;
+
+    /**
+     * Флаг активности офиса
+     */
+    @JsonProperty("isActive")
+    private Boolean isActive;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -39,11 +64,12 @@ public class OfficeOutByIdView {
         this.phone = phone;
     }
 
-    public boolean isActive() {
+    @JsonProperty("isActive")
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 }

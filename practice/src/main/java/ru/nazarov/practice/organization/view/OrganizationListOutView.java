@@ -1,8 +1,25 @@
 package ru.nazarov.practice.organization.view;
 
-public class OrganizationListOut {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * DTO отображение списка организаций
+ */
+public class OrganizationListOutView {
+    /**
+     * ID организации
+     */
     private Long id;
+
+    /**
+     * Название организации
+     */
     private String name;
+
+    /**
+     * Флаг активности организации
+     */
+    @JsonProperty("isActive")
     private Boolean isActive;
 
     public Long getId() {
@@ -21,6 +38,7 @@ public class OrganizationListOut {
         this.name = name;
     }
 
+    @JsonProperty("isActive")
     public Boolean getActive() {
         return isActive;
     }

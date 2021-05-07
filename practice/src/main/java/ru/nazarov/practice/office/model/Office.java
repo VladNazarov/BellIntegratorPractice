@@ -12,29 +12,52 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
-
+/**
+ * Офис
+ */
 @Entity
 public class Office {
 
-    @Version
-    private Integer version;
-
+    /**
+     * Уникальный идентификатор
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Служебное поле hibernate
+     */
+    @Version
+    private Integer version;
+
+    /**
+     * Имя офиса
+     */
     @Column(nullable = false, length = 50)
     private String name;
 
+    /**
+     * Телефонный номер офиса
+     */
     @Column(length = 20)
     private String phone;
 
+    /**
+     * Флаг активности офиса
+     */
     @Column(name = "is_active")
     private Boolean isActive;
 
+    /**
+     * Адрес офиса
+     */
     @Column(nullable = false, length = 50)
     private String address;
 
+    /**
+     * Организация, к которой относится офис
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id")
     private Organization organization;

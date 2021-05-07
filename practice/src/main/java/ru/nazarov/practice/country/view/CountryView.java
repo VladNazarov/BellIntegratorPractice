@@ -1,7 +1,16 @@
 package ru.nazarov.practice.country.view;
 
+/**
+ * DTO для отображения стран
+ */
 public class CountryView {
+    /**
+     * Название страны
+     */
     private String name;
+    /**
+     * Код страны
+     */
     private int code;
 
     public String getName() {

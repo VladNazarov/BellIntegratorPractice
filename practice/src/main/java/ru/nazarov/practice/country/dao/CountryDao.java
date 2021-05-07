@@ -4,18 +4,16 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.nazarov.practice.country.model.Country;
 
-import java.util.List;
-
 /**
- * DAO для работы с Country
- * @author Vlad Nazarov
+ * DAO для работы со справочником стран
  */
 @Repository
 public interface CountryDao extends CrudRepository<Country, Long> {
+
     /**
-     * Получить список стран
-     * @return список стран
+     * Получить страну по коду
+     * @param code код страны
+     * @return страна
      */
-    @Override
-    List<Country> findAll();
+    Country getCountryByCode(Integer code);
 }

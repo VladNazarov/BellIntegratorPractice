@@ -1,4 +1,4 @@
-package ru.nazarov.practice.response;
+package ru.nazarov.practice.response.handler;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -7,7 +7,13 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+import ru.nazarov.practice.response.view.DataView;
+import ru.nazarov.practice.response.view.ErrorView;
+import ru.nazarov.practice.response.view.ResultStringView;
 
+/**
+ * Handler для упаковки ответа
+ */
 @RestControllerAdvice
 public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
 
@@ -18,13 +24,14 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        DataView dataView = new DataView();
-        if (o != null) {
-            dataView.setData(o);
-        }else{
-            dataView.setData("success");
+        if (o instanceof ErrorView) {
+            return o;
+        } else {
+            if (o != null) {
+                return new DataView(o);
+            } else {
+                return new ResultStringView("success");
+            }
         }
-
-        return dataView;
     }
 }

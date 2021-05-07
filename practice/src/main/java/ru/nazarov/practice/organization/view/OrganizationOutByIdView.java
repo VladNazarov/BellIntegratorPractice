@@ -1,13 +1,51 @@
 package ru.nazarov.practice.organization.view;
 
-public class OrganizationOutById {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * DTO отображение организации по id
+ */
+public class OrganizationOutByIdView {
+
+    /**
+     * ID организации
+     */
     private Long id;
+
+    /**
+     * Название организации
+     */
     private String name;
+
+    /**
+     * Полное название организации
+     */
     private String fullName;
+
+    /**
+     * ИНН организации
+     */
     private String inn;
+
+    /**
+     * КПП организации
+     */
     private String kpp;
+
+    /**
+     * Адрес организации
+     */
     private String address;
+
+    /**
+     * Телефонный номер организации
+     */
     private String phone;
+
+    /**
+     * Флаг активности организации
+     */
+    @JsonProperty("isActive")
     private Boolean isActive;
 
     public Long getId() {
@@ -65,8 +103,8 @@ public class OrganizationOutById {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public Boolean isActive() {
+    @JsonProperty("isActive")
+    public Boolean getActive() {
         return isActive;
     }
 

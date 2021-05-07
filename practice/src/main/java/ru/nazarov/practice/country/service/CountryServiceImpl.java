@@ -20,11 +20,13 @@ public class CountryServiceImpl implements CountryService {
         this.mapperFacade = mapperFacade;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public List<CountryView> getList() {
-        List<Country> countries = countryDao.findAll();
+        List<Country> countries =(List<Country>)countryDao.findAll();
         return mapperFacade.mapAsList(countries, CountryView.class);
     }
 }

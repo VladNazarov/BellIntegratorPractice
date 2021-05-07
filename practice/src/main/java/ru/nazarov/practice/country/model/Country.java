@@ -8,22 +8,33 @@ import javax.persistence.Column;
 import javax.persistence.Version;
 
 /**
- * Entity класс стран, являются гражданством пользователя
- * @author Vlad Nazarov
+ * Страна, является гражданством пользователя
  */
 @Entity
 public class Country {
 
-    @Version
-    private Integer version;
-
+    /**
+     * Уникальный идентификатор
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private int code;
+    /**
+     * Служебное поле Hibernate
+     */
+    @Version
+    private Integer version;
 
+    /**
+     * Код страны
+     */
+    @Column(nullable = false)
+    private Integer code;
+
+    /**
+     * Название страны
+     */
     @Column(length = 70, nullable = false)
     private String name;
 
@@ -35,7 +46,7 @@ public class Country {
         this.id = id;
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
