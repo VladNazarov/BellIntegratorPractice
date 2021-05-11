@@ -14,8 +14,6 @@ import ru.nazarov.practice.organization.view.OrganizationFilterView;
 import ru.nazarov.practice.organization.view.OrganizationSaveView;
 import ru.nazarov.practice.organization.view.OrganizationUpdateView;
 
-import javax.transaction.Transactional;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -26,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {PracticeApplication.class})
 @AutoConfigureMockMvc
-@Transactional
 public class OrganizationControllerTest {
 
     public static final String BASE_URL = "/api/organization";

@@ -14,8 +14,6 @@ import ru.nazarov.practice.user.view.UserFilterView;
 import ru.nazarov.practice.user.view.UserSaveView;
 import ru.nazarov.practice.user.view.UserUpdateView;
 
-import javax.transaction.Transactional;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -26,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {PracticeApplication.class})
 @AutoConfigureMockMvc
-@Transactional
 public class UserControllerTest {
 
     @Autowired

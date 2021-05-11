@@ -14,8 +14,6 @@ import ru.nazarov.practice.office.view.OfficeFilterView;
 import ru.nazarov.practice.office.view.OfficeSaveView;
 import ru.nazarov.practice.office.view.OfficeUpdateView;
 
-import javax.transaction.Transactional;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -26,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {PracticeApplication.class})
 @AutoConfigureMockMvc
-@Transactional
 public class OfficeControllerTest {
 
     public static final String BASE_URL = "/api/office";
@@ -49,7 +46,7 @@ public class OfficeControllerTest {
                 .andExpect(jsonPath("$.data.phone").value("71234567890"));
 
         /*Проверка на error*/
-        mvc.perform(get(BASE_URL+"/4"))
+        mvc.perform(get(BASE_URL+"/10"))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
