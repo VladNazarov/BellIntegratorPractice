@@ -36,7 +36,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional(readOnly = true)
     public List<OrganizationListOutView> getListByFilter(OrganizationFilterView filter) {
-        List<Organization> list = dao.getListByFilter(mapperFacade.map(filter, Organization.class));
+        List<Organization> list = dao.getListByFilter(filter);
 
         if (!list.isEmpty()) {
             return mapperFacade.mapAsList(list, OrganizationListOutView.class);
@@ -74,7 +74,9 @@ public class OrganizationServiceImpl implements OrganizationService {
         try {
             Organization updateOrg = dao.getById(organizationView.getId());
             mapperFacade.map(organizationView, updateOrg);
+
             dao.update(updateOrg);
+
         }catch (NoResultException e){
             throw new DataNotFoundException("Organization with this id not found",e);
         }

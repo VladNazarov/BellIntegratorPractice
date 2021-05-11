@@ -3,6 +3,7 @@ package ru.nazarov.practice.user.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.nazarov.practice.country.dao.CountryDao;
 import ru.nazarov.practice.country.model.Country;
 import ru.nazarov.practice.document.dao.DocumentTypeDao;
@@ -20,9 +21,6 @@ import ru.nazarov.practice.user.view.UserOutListView;
 import ru.nazarov.practice.user.view.UserSaveView;
 import ru.nazarov.practice.user.view.UserUpdateView;
 
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.NoResultException;
 import java.util.List;
 
 @Component
@@ -49,46 +47,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public List<UserOutListView> getListByFilter(UserFilterView filter) {
-        User user = new User();
-        mapperFacade.map(filter, user);
+        List<User> resultList = userDao.getListByFilter(filter);
 
-        Office office = officeDao.getById(filter.getOfficeId());
-        if (office != null) {
-            user.setOffice(office);
-
-            if (filter.getCitizenshipCode() != null) {
-
-                Country country = countryDao.getCountryByCode(filter.getCitizenshipCode());
-
-                if (country != null) {
-                    user.setCountry(country);
-                } else {
-                    throw new DataNotFoundException("Country with this code not found");
-                }
-            }
-
-            if (filter.getDocCode() != null) {
-                Document document = new Document();
-                DocumentType documentType = documentTypeDao.findDocumentTypeByCode(filter.getDocCode());
-
-                if (documentType != null) {
-                    document.setDocumentType(documentType);
-                } else {
-                    throw new DataNotFoundException("Document type with this code not found");
-                }
-                user.setDocument(document);
-            }
-
-            List<User> resultList = userDao.getListByFilter(user);
-
-            if (!resultList.isEmpty()) {
-                return mapperFacade.mapAsList(resultList, UserOutListView.class);
-            } else {
-                throw new DataNotFoundException("Users not found");
-            }
-
+        if (!resultList.isEmpty()) {
+            return mapperFacade.mapAsList(resultList, UserOutListView.class);
         } else {
-            throw new DataNotFoundException("Office with this id not found");
+            throw new DataNotFoundException("Users not found");
         }
     }
 
@@ -98,18 +62,19 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserOutByIdView getUserById(Long id) {
-        try {
-            User user = userDao.getById(id);
+        User user = userDao.getById(id);
+
+        if (user == null) {
+            throw new DataNotFoundException("User with this id not found");
+
+        } else {
             UserOutByIdView userView = mapperFacade.map(user, UserOutByIdView.class);
             mapperFacade.map(user.getCountry(), userView);
             mapperFacade.map(user.getDocument(), userView);
             userView.setDocName(user.getDocument().getDocumentType().getName());
 
             return userView;
-        } catch (NoResultException e) {
-            throw new DataNotFoundException("User with this id not found",e);
         }
-
     }
 
     /**
@@ -120,7 +85,10 @@ public class UserServiceImpl implements UserService {
     public void update(UserUpdateView userView) {
         User userForUpdate = userDao.getById(userView.getId());
 
-        if (userForUpdate != null) {
+        if (userForUpdate == null) {
+            throw new DataNotFoundException("User with this id not found");
+
+        } else {
             mapperFacade.map(userView, userForUpdate);
 
             Document document = userForUpdate.getDocument();
@@ -151,16 +119,14 @@ public class UserServiceImpl implements UserService {
             if (userView.getCitizenshipCode() != null) {
                 Country countryByCode = countryDao.getCountryByCode(userView.getCitizenshipCode());
 
-                if (countryByCode != null) {
+                if (countryByCode == null) {
+                    throw new DataNotFoundException("Country with this id not found");
+
+                } else {
                     userForUpdate.setCountry(countryByCode);
                     userDao.update(userForUpdate);
-                } else {
-                    throw new DataNotFoundException("Country with this id not found");
                 }
             }
-
-        } else {
-            throw new DataNotFoundException("User with this id not found");
         }
     }
 
@@ -173,7 +139,10 @@ public class UserServiceImpl implements UserService {
         User userForSave = mapperFacade.map(userView, User.class);
         Office office = officeDao.getById(userView.getOfficeId());
 
-        if(office != null) {
+        if (office == null) {
+            throw new DataNotFoundException("Office with this id not found");
+
+        } else {
             userForSave.setOffice(office);
 
             Document document = new Document();
@@ -182,16 +151,16 @@ public class UserServiceImpl implements UserService {
 
             DocumentType docType = null;
 
-            if(userView.getDocName() != null){
+            if (userView.getDocName() != null) {
                 docType = documentTypeDao.findDocumentTypeByName(userView.getDocName());
 
-            }else if(userView.getDocCode() != null){
+            } else if (userView.getDocCode() != null) {
                 docType = documentTypeDao.findDocumentTypeByCode(userView.getDocCode());
             }
 
-            if(docType != null){
+            if (docType != null) {
                 document.setDocumentType(docType);
-            }else{
+            } else {
                 throw new DataNotFoundException("Document type not found");
             }
 
@@ -200,14 +169,13 @@ public class UserServiceImpl implements UserService {
 
             Country country = countryDao.getCountryByCode(userView.getCitizenshipCode());
 
-            if (country != null){
+            if (country != null) {
                 userForSave.setCountry(country);
                 userDao.save(userForSave);
-            }else{
+            } else {
                 throw new DataNotFoundException("Country with this code not found");
             }
-        }else{
-            throw new DataNotFoundException("Office with this id not found");
         }
     }
+
 }

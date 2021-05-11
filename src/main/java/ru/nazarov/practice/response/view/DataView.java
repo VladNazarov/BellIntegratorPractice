@@ -9,6 +9,8 @@ public class DataView {
      */
     private Object data;
 
+    public DataView(){}
+
     public DataView(Object data) {
         this.data = data;
     }

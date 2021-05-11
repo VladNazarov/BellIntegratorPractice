@@ -39,10 +39,8 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     public List<OfficeListOutView> getListByFilter(OfficeFilterView filter) {
-        Office officeFilter = mapperFacade.map(filter, Office.class);
-        officeFilter.setOrganization(orgDao.getById(filter.getOrgId()));
+        List<Office> offices = officeDao.getListByFilter(filter);
 
-        List<Office> offices = officeDao.getListByFilter(officeFilter);
         if (!offices.isEmpty()) {
             return mapperFacade.mapAsList(offices, OfficeListOutView.class);
         } else {

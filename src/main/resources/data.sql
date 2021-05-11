@@ -1,4 +1,4 @@
-INSERT INTO country (version, code, name) VALUES (0, 643, 'Российская федерация');
+INSERT INTO country (version, code, name) VALUES (0, 643, 'Российская Федерация');
 INSERT INTO country (version, code, name) VALUES (0, 392, 'Япония');
 INSERT INTO country (version, code, name) VALUES (0, 36, 'Австралия');
 INSERT INTO country (version, code, name) VALUES (0, 124, 'Канада');
@@ -21,7 +21,10 @@ INSERT INTO office(version, organization_id, name, phone, is_active, address) VA
 
 INSERT INTO user(version, office_id, first_name, second_name, last_name, middle_name, position, is_identified, phone, country_id) VALUES (0, 1, 'Иван', 'Фёдор', 'Иванов', 'Иванович', 'Директор', 'true', '83333333333', 1);
 INSERT INTO user(version, office_id, first_name, last_name, middle_name, position, is_identified, phone, country_id) VALUES (0, 2, 'Владислав', 'Кузьмин', 'Васильевич', 'Работник', 'true', '+7 777 777 77 77', 1);
+INSERT INTO user(version, office_id, first_name, last_name, middle_name, position, is_identified, phone, country_id) VALUES (0, 1, 'Валерий', 'Иванов', 'Валерьевич', 'Бухгалтер', 'true', '+7 666 666 66 66', 1);
+
 
 
 INSERT INTO document(version, id, doc_number, doc_date, doc_type_id) VALUES (0, 1, '4500123456', '2005-02-02', 1);
 INSERT INTO document(version, id, doc_number, doc_date, doc_type_id) VALUES (0, 2, '450121222', '2009-02-01', 2);
+INSERT INTO document(version, id, doc_number, doc_date, doc_type_id) VALUES (0, 3, '123443211', '2003-01-01', 2);

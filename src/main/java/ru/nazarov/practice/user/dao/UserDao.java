@@ -1,6 +1,7 @@
 package ru.nazarov.practice.user.dao;
 
 import ru.nazarov.practice.user.model.User;
+import ru.nazarov.practice.user.view.UserFilterView;
 
 import java.util.List;
 
@@ -11,9 +12,10 @@ public interface UserDao {
 
     /**
      * Получить список пользователей по фильтру
+     * @param userFilter фильтр
      * @return список пользователей
      */
-    List<User> getListByFilter(User userFilter);
+    List<User> getListByFilter(UserFilterView userFilter);
 
     /**
      * Получить пользователя по id

@@ -26,12 +26,13 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         if (o instanceof ErrorView) {
             return o;
-        } else {
-            if (o != null) {
-                return new DataView(o);
-            } else {
-                return new ResultStringView("success");
-            }
         }
+
+        if (o != null) {
+            return new DataView(o);
+        } else {
+            return new DataView(new ResultStringView("success"));
+        }
+
     }
 }

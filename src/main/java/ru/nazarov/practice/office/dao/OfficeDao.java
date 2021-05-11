@@ -1,6 +1,7 @@
 package ru.nazarov.practice.office.dao;
 
 import ru.nazarov.practice.office.model.Office;
+import ru.nazarov.practice.office.view.OfficeFilterView;
 
 import java.util.List;
 
@@ -10,9 +11,10 @@ import java.util.List;
 public interface OfficeDao {
     /**
      * Получить список офисов по фильтру
+     * @param filter фильтр
      * @return список офисов
      */
-    List<Office> getListByFilter(Office filter);
+    List<Office> getListByFilter(OfficeFilterView filter);
 
     /**
      * Получить офис по id

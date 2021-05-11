@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.nazarov.practice.exception.DataNotFoundException;
 import ru.nazarov.practice.organization.model.Organization;
+import ru.nazarov.practice.organization.view.OrganizationFilterView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -28,10 +29,10 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public List<Organization> getListByFilter(Organization orgFilter) {
+    public List<Organization> getListByFilter(OrganizationFilterView orgFilter) {
         String name = orgFilter.getName();
         String inn = orgFilter.getInn();
-        Boolean active = orgFilter.isActive();
+        Boolean active = orgFilter.getActive();
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Organization> criteriaQuery = builder.createQuery(Organization.class);
